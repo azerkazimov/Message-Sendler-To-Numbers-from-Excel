@@ -1,0 +1,23 @@
+td {
+    border: 1px solid black;
+
+}
+
+tr {
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: map-get($colors, silvery)
+    }
+}
+
+.btn {
+    @extend .p-2;
+    color: map-get($colors, natural);
+    background-color: map-get($colors, primary);
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: map-get($colors, success);
+    }
+}
