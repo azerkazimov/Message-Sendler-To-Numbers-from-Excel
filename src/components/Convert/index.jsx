@@ -41,16 +41,17 @@ function Convert() {
     phoneNumbers.forEach((phoneNumber) => {
       const message = "Welcome to our service!";
 
-      axios.post('http://localhost:5000/send-whatsapp', {
-        phoneNumber,
-        message,
-      })
-      .then((response) => {
-        console.log(`Message sent to ${phoneNumber}`);
-      })
-      .catch((error) => {
-        console.error(`Failed to send message to ${phoneNumber}:`, error);
-      });
+      axios
+        .post("http://localhost:5174/send-whatsapp", {
+          phoneNumber,
+          message,
+        })
+        .then((response) => {
+          console.log(`Message sent to ${phoneNumber}`);
+        })
+        .catch((error) => {
+          console.error(`Failed to send message to ${phoneNumber}:`, error);
+        });
     });
   };
 

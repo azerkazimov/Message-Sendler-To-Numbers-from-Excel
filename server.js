@@ -5,7 +5,7 @@ import axios from "axios";
 import cors from "cors";
 
 const app = express();
-const port = 5000;
+const port = 5174;
 
 app.use(bodyParser.json());
 app.use(cors());
