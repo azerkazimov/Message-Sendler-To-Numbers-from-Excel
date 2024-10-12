@@ -1,6 +1,7 @@
 // src/Convert/index.jsx
 import { useState } from "react";
 import { read, utils } from "xlsx";
+import { sendSMS } from "../../service/api";
 import axios from "axios";
 import "./style.scss";
 
@@ -27,8 +28,9 @@ function Convert() {
         });
         setJsonData(allSheetsData);
 
-        // Send WhatsApp messages
-        sendWhatsAppMessages(allSheetsData);
+        // Send messages
+        sendSmsMessages(allSheetsData);
+        console.log(allSheetsData);
       };
     }
   };
@@ -38,11 +40,11 @@ function Convert() {
     const phoneNumbers = data.map((item) => item.Telefon);
 
     // Send welcome message to each phone number
-    phoneNumbers.forEach((phoneNumber) => {
-      const message = "Welcome to our service!";
+    phoneNumbers.map((phoneNumber) => {
+      const message = "Welcome to our SIGORTA!";
 
       axios
-        .post("http://localhost:5174/send-whatsapp", {
+        .post("http://localhost:5000/send-whatsapp", {
           phoneNumber,
           message,
         })
@@ -53,6 +55,13 @@ function Convert() {
           console.error(`Failed to send message to ${phoneNumber}:`, error);
         });
     });
+  };
+
+  const sendSmsMessages = (data) => {
+    const phoneNumbers = data.map((item) => item.Telefon);
+    const message = "Welcome to our SIGORTA!";
+
+    sendSMS(phoneNumbers, message); // Используем функцию из service/api.js
   };
 
   const getTableHeaders = () => {
