@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_KEY =
-  "Z48bvkmdL9I9sjXwVMaqMKox2doalHQmEGwwpJybpjOv2UeEPcTHnn3DLeGgCMOd";
+  "Ahft5dbagupzDfdRI02fDkLIGd8R3jPq3YsgyLi1vBM2MXOMM7cB6GggAeml8gXB";
 
 export const instance = axios.create({
   baseURL: "https://textlinksms.com/api",
