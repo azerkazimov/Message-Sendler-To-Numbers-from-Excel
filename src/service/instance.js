@@ -6,6 +6,7 @@ const API_KEY =
 export const instance = axios.create({
   baseURL: "https://textlinksms.com/api",
   headers: {
+    "access-control-allow-methods": "*",
     "Content-Type": "application/json",
     Authorization: `Bearer ${API_KEY}`,
   },

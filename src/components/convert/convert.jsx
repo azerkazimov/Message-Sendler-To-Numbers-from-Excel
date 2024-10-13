@@ -3,9 +3,10 @@ import { useState } from "react";
 
 import { ConvertTable } from "@/components";
 
+import { sendTextMessage } from "@/service/textlinksms";
+import { tls } from "@/service/tls";
 import { useTableStore } from "@/store";
 import { sheetConvertToJson } from "@/utils";
-import { sendTextMessage } from "@/service/textlinksms";
 
 export const Convert = () => {
   const { setTableData } = useTableStore();
@@ -16,15 +17,18 @@ export const Convert = () => {
   };
 
   const onSheetFileUpload = async () => {
-    const datas = await sheetConvertToJson(selectedFile);
-    setTableData(datas);
+    await sheetConvertToJson(selectedFile).then((data) => {
+      setTableData(data);
+      const phoneNumbers = data.map((item) => item.Telefon);
+      const message = "Welcome to our SIGORTA!";
+      tls({ phoneNumbers, message });
+    });
+    return;
 
     // // NOTE: for sending SMS uncomment next line
     // // sendSmsMessages(datas);
 
-    const phoneNumbers = datas.map((item) => item.Telefon);
-    const message = "Welcome to our SIGORTA!";
-    sendTextMessage(phoneNumbers, message);
+    // sendTextMessage(phoneNumbers, message);
   };
 
   // const sendWhatsAppMessages = (data) => {
@@ -57,12 +61,12 @@ export const Convert = () => {
   // };
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col items-center justify-center">
       <h3 className="text-center text-2xl mb-12 font-bold text-[#d79921]">
         Convert Excel for Message
       </h3>
 
-      <div className="flex flex-row px-8 gap-12 items-center justify-center mb-20">
+      <div className="flex flex-row items-center justify-center gap-12 px-8 mb-20">
         <div>
           <input
             className="border border-gray-300 px-4 py-2 rounded-lg h-[50px] cursor-pointer"
