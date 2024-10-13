@@ -5,6 +5,7 @@ import { ConvertTable } from "@/components";
 
 import { useTableStore } from "@/store";
 import { sheetConvertToJson } from "@/utils";
+import { sendTextMessage } from "@/service/textlinksms";
 
 export const Convert = () => {
   const { setTableData } = useTableStore();
@@ -17,8 +18,13 @@ export const Convert = () => {
   const onSheetFileUpload = async () => {
     const datas = await sheetConvertToJson(selectedFile);
     setTableData(datas);
+
     // // NOTE: for sending SMS uncomment next line
     // // sendSmsMessages(datas);
+
+    const phoneNumbers = datas.map((item) => item.Telefon);
+    const message = "Welcome to our SIGORTA!";
+    sendTextMessage(phoneNumbers, message);
   };
 
   // const sendWhatsAppMessages = (data) => {

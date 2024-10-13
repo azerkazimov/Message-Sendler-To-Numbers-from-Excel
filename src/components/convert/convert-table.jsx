@@ -1,3 +1,4 @@
+import { cn } from "@/utils";
 import { ConvertTableData } from "./convert-table-data";
 
 import { useTableStore } from "@/store";
@@ -7,7 +8,11 @@ export const ConvertTable = () => {
 
   return (
     tableData.length > 0 && (
-      <ConvertTableData columns={tableData} data={tableData} />
+      <ConvertTableData
+        className={cn("flex")}
+        columns={tableData}
+        data={tableData}
+      />
     )
   );
 };
